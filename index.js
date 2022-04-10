@@ -33,9 +33,10 @@ io.on('connection', function(socket){
   socket.on('actualiza usuarios', function(msg){
     console.log("Devolviendo los usuarios conectados");
     for (var valor of usuarios) {
+      io.emit('actualiza usuarios', valor);
       console.log("Usuarios conectados: " + valor);
     }
-    io.emit('actualiza usuarios', usuarios);
+
   });
 
 
