@@ -46,7 +46,7 @@ io.on('connection', function(socket){
   });
 
   socket.on('disconnect', () => {
-    console.log('Un usuario se ha desconectado');
+    console.log('Un usuario se ha desconectado: ' + socket);
     usuarios.pop();
   });
 });
