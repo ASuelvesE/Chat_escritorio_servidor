@@ -43,12 +43,16 @@ io.on('connection', function(socket){
   });
 
   socket.on('disconnect', () => {
+    var salida = "";
     console.log('Un usuario se ha desconectado: ' + socket.id);
     for(var i = 0;i<usuarios.length;i++){
       if(usuarios[i].socket == socket.id){
         console.log("Se ha eliminado del array a: " + usuarios[i].nombre);
         usuarios.splice(i, 1);
       }
+    }
+    for(var i = 0;i<usuarios.length;i++){
+      salida += "\n" + usuarios[i].nombre + "\n";
     }
     io.emit('actualiza usuarios', salida);
   });
