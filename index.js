@@ -24,10 +24,10 @@ io.on('connection', function(socket){
   socket.on('usuario nuevo', function(msg){
     var salida = "";
     console.log('Usuario añadido al array');
-    //io.emit('usuario nuevo', msg);
-    usuarios.push (msg);
-    for (var valor of usuarios) {
-      salida += "\n" + valor + "\n";
+    usuarios.push (new Usuario(msg,socket.id));
+
+    for(var i = 0;i<usuarios.length;i++){
+      salida += "\n" + usuarios[i].nombre + "\n";
     }
     io.emit('actualiza usuarios', salida);
     console.log("Usuarios conectados: " + salida);
@@ -41,10 +41,29 @@ io.on('connection', function(socket){
 
   socket.on('disconnect', () => {
     console.log('Un usuario se ha desconectado: ' + socket.id);
-    usuarios.pop();
+    for(var i = 0;i<usuarios.length;i++){
+      if(usuarios[i].socket == socket.id){
+        usuarios.splice(pos, i);
+        console.log("Se ha eliminado del array a: " + usuarios[i].nombre);
+      }
+    }
+    //usuarios.pop();
   });
 });
 
 http.listen(app.get('port'), function() {
   console.log('Servidor funcionando en el puerto:', app.get('port'));
 });
+
+
+
+
+////////////////////-------CLASES ------------------------------------////////////////////////////
+
+
+class Usuario{
+  constructor(nombre,socket){
+    this.nombre = nombre;
+    this.socket = socket;
+  }
+}
