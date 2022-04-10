@@ -22,23 +22,15 @@ io.on('connection', function(socket){
     console.log('Se ha conectado un usuario');
 
   socket.on('usuario nuevo', function(msg){
+    var salida = "";
     console.log('Usuario añadido al array');
-    io.emit('usuario nuevo', msg);
+    //io.emit('usuario nuevo', msg);
     usuarios.push (msg);
     for (var valor of usuarios) {
-      io.emit('actualiza usuarios', valor);
-      console.log("Usuarios conectados: " + valor);
+      salida += "\n" + valor + "\n";
     }
-  });
-
-  socket.on('actualiza usuarios', function(msg){
-    console.log("Devolviendo los usuarios conectados");
-    for (var valor of usuarios) {
-      io.emit('actualiza usuarios', valor);
-      //socket.broadcast.emit('actualiza usuarios', valor)
-      console.log("Usuarios conectados: " + valor);
-    }
-
+    io.emit('actualiza usuarios', salida);
+    console.log("Usuarios conectados: " + salida);
   });
 
 
