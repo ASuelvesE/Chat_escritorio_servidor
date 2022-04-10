@@ -26,6 +26,7 @@ io.on('connection', function(socket){
     io.emit('usuario nuevo', msg);
     usuarios.push (msg);
     for (var valor of usuarios) {
+      io.emit('actualiza usuarios', valor);
       console.log("Usuarios conectados: " + valor);
     }
   });
