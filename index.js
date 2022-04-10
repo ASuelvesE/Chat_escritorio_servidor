@@ -30,7 +30,10 @@ io.on('connection', function(socket){
       salida += "\n" + usuarios[i].nombre + "\n";
     }
     io.emit('actualiza usuarios', salida);
-    console.log("Usuarios conectados: " + salida);
+    console.log("Usuarios conectados: ");
+    for(var i = 0;i<usuarios.length;i++){
+        console.log(usuarios[i].nombre);
+    }
   });
 
 
