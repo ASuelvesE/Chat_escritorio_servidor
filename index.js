@@ -37,9 +37,9 @@ io.on('connection', function(socket){
   });
 
 
-  socket.on('evento chat', function(chat,usuario){
+  socket.on('evento chat', function(chat,usuario,sala){
     console.log(usuario+ " : " + chat);
-    io.emit('evento chat', chat,usuario);
+    io.emit('evento chat', chat,usuario,sala);
   });
 
   socket.on('disconnect', () => {
