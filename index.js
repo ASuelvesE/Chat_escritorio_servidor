@@ -21,13 +21,13 @@ io.on('connection', function(socket){
 
     console.log('Se ha conectado un usuario');
 
-  socket.on('usuario nuevo', function(msg){
+  socket.on('usuario nuevo', function(msg,sala){
     var salida = "";
     console.log('Usuario añadido al array');
-    usuarios.push (new Usuario(msg,socket.id));
+    usuarios.push (new Usuario(msg,socket.id,sala));
 
     for(var i = 0;i<usuarios.length;i++){
-      salida += "\n" + usuarios[i].nombre + "\n";
+      salida += "\n" + usuarios[i].nombre + "[" + usuarios[i].sala + "]" + "\n";
     }
     io.emit('actualiza usuarios', salida);
     console.log("Usuarios conectados: ");
@@ -52,7 +52,7 @@ io.on('connection', function(socket){
       }
     }
     for(var i = 0;i<usuarios.length;i++){
-      salida += "\n" + usuarios[i].nombre + "\n";
+      salida += "\n" + usuarios[i].nombre + "[" + usuarios[i].sala + "]" + "\n";
     }
     io.emit('actualiza usuarios', salida);
   });
@@ -69,8 +69,9 @@ http.listen(app.get('port'), function() {
 
 
 class Usuario{
-  constructor(nombre,socket){
+  constructor(nombre,socket,sala){
     this.nombre = nombre;
     this.socket = socket;
+    this.sala = sala;
   }
 }
