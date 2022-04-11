@@ -22,12 +22,12 @@ io.on('connection', function(socket){
     console.log('Se ha conectado un usuario');
 
   socket.on('usuario nuevo', function(msg,sala){
-    var salida = "";
+    var salida = "\t";
     console.log('Usuario añadido al array');
     usuarios.push (new Usuario(msg,socket.id,sala));
 
     for(var i = 0;i<usuarios.length;i++){
-      salida += "\n" + usuarios[i].nombre + "[" + usuarios[i].sala + "]" + "\n";
+      salida += "\n-" + usuarios[i].nombre + "[" + usuarios[i].sala + "]" + "\n";
     }
     io.emit('actualiza usuarios', salida);
     console.log("Usuarios conectados: ");
